@@ -10,12 +10,6 @@ body {
     color: black;
 }
 
-.nav-item {
-    margin-left: 50px;
-    margin-right: 50px
-    
-}
-
 .nav-item a {
     color: black;
 }
@@ -26,7 +20,7 @@ h1, h2 {
 }
 
 h1 {
-    margin-top: 3em;
+    margin-top: 1.5em;
 }
 
 .form-control {
@@ -35,13 +29,14 @@ h1 {
 
 .btn {
     margin-top: 1em;
+    background-color: red !important;
+    border-color: white !important;
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2em;
 }
 
 .card img {
@@ -78,4 +73,19 @@ footer {
     font-size: 12px;
 
 }
+
+.signup-container {
+    display: flex;
+    justify-content: center ;
+}
+
+.card-signup {
+    margin-top: 25px;
+}
+
+.sign-up-button {
+    display: flex;
+    justify-content: center;
+}
+
 
