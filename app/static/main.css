@@ -88,4 +88,25 @@ footer {
     justify-content: center;
 }
 
+#middle-bar {
+    display: flex;
+    justify-content: center;
+    flex-basis: 0;
+}
 
+.left-bar {
+    flex-grow: 1;
+}
+
+.right-bar {
+    flex-grow: 1;
+}
+
+p.nav-link {
+    margin-bottom: auto;
+    color: white;
+}
+
+p.nav-link:hover {
+    color: white !important;
+}

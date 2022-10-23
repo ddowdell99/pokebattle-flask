@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 db = SQLAlchemy()
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     user_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
@@ -16,7 +17,10 @@ class User(db.Model):
         self.last_name = last_name
         self.username = username
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
+
+    def get_id(self):
+        return (self.user_id)
 
     def saveToDB(self):
         db.session.add(self)
@@ -32,6 +36,7 @@ class Team(db.Model):
         self.team_id = team_id
         self.user_id = user_id
 
+
 class TeamPokemonJoin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(db.Integer, db.ForeignKey('team.team_id'))
@@ -40,6 +45,10 @@ class TeamPokemonJoin(db.Model):
     def __init__(self, team_id, pokemon_id):
         self.team_id = team_id
         self.pokemon_id = pokemon_id
+
+    def saveToDB(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Pokemon(db.Model):
     pokemon_id = db.Column(db.Integer, primary_key=True)
@@ -61,6 +70,8 @@ class Pokemon(db.Model):
         self.defense = defense
         self.team_id = team_id
 
-
+    def saveToDB(self):
+        db.session.add(self)
+        db.session.commit()
     
     

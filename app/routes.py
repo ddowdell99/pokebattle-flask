@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for
 import requests as r
 
-from app.forms import GrabPokemon
+from app.forms import GrabPokemon, AddToTeam
 
 pokemonInfo = {}
 
@@ -48,7 +48,27 @@ def homePage():
 
 @app.route('/PokemonCard')
 def pokemonCard():
+    addToTeamForm = AddToTeam()
 
-    return render_template('pokemon_card.html', pokemonInfo=pokemonInfo)
+    if request.method == 'POST':
+        if addToTeamForm.validate():
+
+            pokemon_id = pokemonInfo.id.data
+            pokemon_img = pokemonInfo.front_shiny.data
+            name = pokemonInfo.name.data
+            ability = pokemonInfo.ability.data
+            attack = pokemonInfo.attack_stat.data
+            hp = pokemonInfo.hp_stat.data
+            defense = pokemonInfo.defense_stat.data
+            
+            pokemon = Pokemon(pokemon_id, pokemon_img, name, ability, attack, hp, defense)
+
+            pokemon.saveToDB()
+
+            
+
+
+
+    return render_template('pokemon_card.html', pokemonInfo=pokemonInfo, addToTeamForm=addToTeamForm)
 
 

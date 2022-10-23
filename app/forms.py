@@ -5,3 +5,6 @@ from wtforms.validators import DataRequired
 class GrabPokemon(FlaskForm):
     pokemon = StringField('Pokemon', validators=[DataRequired()])
     submit = SubmitField()
+
+class AddToTeam(FlaskForm):
+    submit = SubmitField()
