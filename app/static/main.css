@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+    background-image: url('https://st2.depositphotos.com/3213441/12022/v/600/depositphotos_120226446-stock-illustration-pokemon-go-pokeball-seamless-texture.jpg');
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -19,10 +19,6 @@ h1, h2 {
     text-align: center;
 }
 
-h1 {
-    margin-top: 1.5em;
-}
-
 .form-control {
     text-align: center;
 }
@@ -39,11 +35,27 @@ form {
     align-items: center;
 }
 
+.card-body{
+    text-align: center;
+}
 .card img {
-    margin-top: 3em;
-    margin-bottom: 3em;
-    height: 17em;
-    width: 25em;
+    height: 15em;
+    width: 15em;
+}
+
+.pokemon-card-img-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.pokemon-card-img1-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pokemon-card-img2-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .card {
@@ -55,7 +67,7 @@ form {
     display: flex;
     justify-content: center;
     align-items: baseline ;
-    margin-top: 125px;
+    margin-top: 2em;
 }
 
 nav.navbar {
@@ -80,7 +92,7 @@ footer {
 }
 
 .card-signup {
-    margin-top: 25px;
+    margin-top: 10em;
 }
 
 .sign-up-button {
@@ -95,11 +107,9 @@ footer {
 }
 
 .left-bar {
-    flex-grow: 1;
-}
-
-.right-bar {
-    flex-grow: 1;
+    flex-grow: 0.5;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 p.nav-link {
@@ -109,4 +119,26 @@ p.nav-link {
 
 p.nav-link:hover {
     color: white !important;
+}
+
+.add-to-team-button {
+    display: flex;
+    justify-content: center;
+}
+
+.create-account {
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-container {
+    border: solid #000;
+    border-width: 2px 2px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    max-width: 50%;
+    margin-left: 25%;
+    margin-top: 10em;
+    padding: 1.5em;
 }

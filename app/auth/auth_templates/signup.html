@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1>Create a New Account!</h1>
+<div class="signup-background">
 <form method="POST">
     
     {{ signUpForm.hidden_tag() }}
@@ -12,7 +12,7 @@
     <div class="signup-container">
         <div class="card-signup card" style="width: 25.5rem;">
             <div class="card-body">
-                <h5 class="signup-title">Sign-Up</h5>
+                <h5 class="signup-title">Create your PokeBattle Account!</h5>
                 <p class="first-name-text my-2"><b>First Name</b></p>
                 <div class="input-group flex-nowrap">
                     {{ signUpForm.first_name(class='form-control', placeholder='Please enter your first name') }}
@@ -46,4 +46,5 @@
         </div>
     </div>
 </form>
+</div>
 {% endblock %}

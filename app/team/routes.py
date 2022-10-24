@@ -6,4 +6,4 @@ team = Blueprint('team', __name__, template_folder='team_templates')
 
 @team.route('/team/create', methods=['GET', 'POST'])
 def createTeam():
-    return render_template
+    return render_template('create_team.html')

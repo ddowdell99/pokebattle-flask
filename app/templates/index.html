@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="welcome-container" style="border-color:black">
     <h1>Welcome Trainer!</h1>
     <h2>Please enter a Pokemon to see its card!</h2>
     <form method="POST">
         {{ form.hidden_tag() }}
 
-        {{ form.pokemon(class='form-control w-25', placeholder='Enter a Pokemon or Pokemon Number') }}
+        {{ form.pokemon(class='form-control w-50', placeholder='Enter a Pokemon or Pokemon Number') }}
         {{ form.submit(class='btn btn-primary', value='Retrieve Pokemon') }}
     </form>
-
+</div>
 {% endblock %}

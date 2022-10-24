@@ -1,3 +1,4 @@
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
@@ -53,14 +54,13 @@ class TeamPokemonJoin(db.Model):
 class Pokemon(db.Model):
     pokemon_id = db.Column(db.Integer, primary_key=True)
     pokemon_img = db.Column(db.String)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     ability = db.Column(db.String(50), nullable=False)
     attack = db.Column(db.Integer, nullable=False)
     hp = db.Column(db.Integer, nullable=False)
     defense = db.Column(db.Integer, nullable=False)
-    team_id = db.relationship('TeamPokemonJoin', backref='team', lazy=True)
 
-    def __init__(self, pokemon_id, pokemon_img, name, ability, attack, hp, defense, team_id):
+    def __init__(self, pokemon_id, pokemon_img, name, ability, attack, hp, defense):
         self.pokemon_id = pokemon_id
         self.pokemon_img = pokemon_img
         self.name = name
@@ -68,7 +68,6 @@ class Pokemon(db.Model):
         self.attack = attack
         self.hp = hp
         self.defense = defense
-        self.team_id = team_id
 
     def saveToDB(self):
         db.session.add(self)

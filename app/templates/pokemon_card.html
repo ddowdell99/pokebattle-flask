@@ -22,30 +22,41 @@
     {% block css %}
 
     {% endblock %}
-    <h1>Here's your Pokemon!</h1>
+    <form>
     <div class="card-container">
         <div class="card mb-3" style="max-width: 600px;">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <img src="{{pokemonInfo.front_shiny}}" class="img-fluid rounded-start" alt="">
-                </div>
-                <div class="col-md-6">
                     <div class="card-body">
                         <h4 class="card-title"><strong>{{pokemonInfo.name}}</strong></h4><br/>
+                        {% if pokemonInfo.ability2 %}
                         <p class="card-text">Abilities: {{pokemonInfo.ability}}, {{pokemonInfo.ability2}}</p>
+                        {% else %}
+                        <p class="card-text">Abilities: {{pokemonInfo.ability}}</p>
+                        {% endif %}
                         <p class="card-text">Base Exp: {{pokemonInfo.base_exp}}</p>
                         <p class="card-text">Base Attack: {{pokemonInfo.attack_stat}}</p>
                         <p class="card-text">Base HP: {{pokemonInfo.hp_stat}}</p>
-                        <p class="card-text">Base Defense: {{pokemonInfo.defense_stat}}</p><br/><br/>
+                        <p class="card-text">Base Defense: {{pokemonInfo.defense_stat}}</p>
+                        <figure class="pokemon-card-img-container">
+                        <figure class="pokemon-card-img1-container">
+                        <img src="{{pokemonInfo.front_shiny}}" class="img-fluid rounded-start" alt="picture of {{ pokemonInfo.name }}">
+                        <figcaption style="font-weight:bolder">SHINY {{ pokemonInfo.name.upper() }}</figcaption>
+                        </figure>
+                        <figure class="pokemon-card-img2-container">
+                        <img src="{{pokemonInfo.default_img}}" class="img-fluid rounded-start" alt="picture of {{ pokemonInfo.name }}">
+                        <figcaption style="font-weight:bolder">NORMAL {{ pokemonInfo.name.upper() }}</figcaption>
+                        </figure>
+                        </figure>
+                        <br/><br/>
                         <p class="card-text"><small class="text-muted">Pokemon ID: {{pokemonInfo.id}}</small></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="sign-up-button">
+    <div class="add-to-team-button w-50">
         {{ addToTeamForm.submit(class='btn btn-primary w-50 mb-2', value='Add To Team') }}
-    </div>   
+    </div>  
+</form> 
     <footer class="footer-container">
         <div class="signature">
             Made by Diante
