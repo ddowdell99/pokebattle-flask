@@ -1,8 +1,9 @@
 from app import app
 from flask import render_template, request, redirect, url_for
+from flask_login import current_user
 import requests as r
 
-from app.forms import GrabPokemon, AddToTeam
+from app.forms import GrabPokemon
 from app.models import Pokemon
 
 pokemonInfo = {}
@@ -61,33 +62,20 @@ def homePage():
                         pokemon.saveToDB()
                         return redirect(url_for('pokemonCard')) 
 
+
     return render_template('index.html', form=form)
 
 @app.route('/PokemonCard')
 def pokemonCard():
-    addToTeamForm = AddToTeam()
-    # print('Add to team')
+    pokemon = Pokemon.query.all()
 
-    # if request.method == 'POST':
-    #     print('get happened')
-    #     if addToTeamForm.validate():
-
-    #         pokemon_id = pokemonInfo.id.data
-    #         pokemon_img = pokemonInfo.front_shiny.data
-    #         name = pokemonInfo.name.data
-    #         ability = pokemonInfo.ability.data
-    #         attack = pokemonInfo.attack_stat.data
-    #         hp = pokemonInfo.hp_stat.data
-    #         defense = pokemonInfo.defense_stat.data
-            
-    #         pokemon = Pokemon(pokemon_id, pokemon_img, name, ability, attack, hp, defense)
-
-    #         pokemon.saveToDB()
+    captured_set = set()
+    if current_user.is_authenticated:
+        current_team = current_user.team.all()
+        for p in current_team:
+            captured_set.add(p.pokemon_id)
 
             
-
-
-
-    return render_template('pokemon_card.html', pokemonInfo=pokemonInfo, addToTeamForm=addToTeamForm)
+    return render_template('pokemon_card.html', pokemonInfo=pokemonInfo, pokemon=pokemon, captured_set=captured_set)
 
 

@@ -1,10 +1,11 @@
 from flask import Flask
 from config import Config
 from flask_migrate import Migrate
-from .models import db, User, Team, TeamPokemonJoin, Pokemon
+from .models import db, User, Pokemon
 from flask_login import LoginManager
 
 from .auth.routes import auth
+from .team.routes import team
 
 app = Flask(__name__)
 login = LoginManager()
@@ -16,6 +17,7 @@ def load_user(user_id):
 app.config.from_object(Config)
 
 app.register_blueprint(auth)
+app.register_blueprint(team)
 
 
 db.init_app(app)

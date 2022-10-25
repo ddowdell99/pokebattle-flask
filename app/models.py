@@ -1,8 +1,14 @@
-from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 db = SQLAlchemy()
+
+
+team = db.Table(
+    'team',
+    db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.pokemon_id'), nullable=False),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+)
 
 class User(db.Model, UserMixin):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -11,7 +17,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(250), nullable=False)
-    team_id = db.relationship('Team', backref='team', lazy=True)
+    # team_id = db.relationship('Team', backref='team', lazy=True)
+    team = db.relationship('Pokemon',
+        secondary = 'team',
+        backref = 'Pokemonteam',
+        lazy = 'dynamic'
+    )
+
 
     def __init__(self, first_name, last_name, username, email, password):
         self.first_name = first_name
@@ -27,28 +39,12 @@ class User(db.Model, UserMixin):
         db.session.add(self)
         db.session.commit()
 
+    def capture(self, pokemon):
+        self.team.append(pokemon)
+        db.session.commit()
 
-
-class Team(db.Model):
-    team_id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
-
-    def __init__(self, team_id, user_id):
-        self.team_id = team_id
-        self.user_id = user_id
-
-
-class TeamPokemonJoin(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    team_id = db.Column(db.Integer, db.ForeignKey('team.team_id'))
-    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.pokemon_id'))
-
-    def __init__(self, team_id, pokemon_id):
-        self.team_id = team_id
-        self.pokemon_id = pokemon_id
-
-    def saveToDB(self):
-        db.session.add(self)
+    def release(self, pokemon):
+        self.team.remove(pokemon)
         db.session.commit()
 
 class Pokemon(db.Model):
@@ -59,6 +55,12 @@ class Pokemon(db.Model):
     attack = db.Column(db.Integer, nullable=False)
     hp = db.Column(db.Integer, nullable=False)
     defense = db.Column(db.Integer, nullable=False)
+    team = db.relationship('User',
+        secondary = 'team',
+        backref = 'userTeam',
+        lazy = 'dynamic'
+    )
+
 
     def __init__(self, pokemon_id, pokemon_img, name, ability, attack, hp, defense):
         self.pokemon_id = pokemon_id
@@ -73,4 +75,11 @@ class Pokemon(db.Model):
         db.session.add(self)
         db.session.commit()
     
+    def capture(self, pokemon):
+        self.team.append(pokemon)
+        db.session.commit()
+
+    def release(self, pokemon):
+        self.team.remove(pokemon)
+        db.session.commit()
     

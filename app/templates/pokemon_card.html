@@ -23,45 +23,59 @@
 
     {% endblock %}
     <form>
-    <div class="card-container">
-        <div class="card mb-3" style="max-width: 600px;">
-                    <div class="card-body">
-                        <h4 class="card-title"><strong>{{pokemonInfo.name}}</strong></h4><br/>
-                        {% if pokemonInfo.ability2 %}
-                        <p class="card-text">Abilities: {{pokemonInfo.ability}}, {{pokemonInfo.ability2}}</p>
-                        {% else %}
-                        <p class="card-text">Abilities: {{pokemonInfo.ability}}</p>
-                        {% endif %}
-                        <p class="card-text">Base Exp: {{pokemonInfo.base_exp}}</p>
-                        <p class="card-text">Base Attack: {{pokemonInfo.attack_stat}}</p>
-                        <p class="card-text">Base HP: {{pokemonInfo.hp_stat}}</p>
-                        <p class="card-text">Base Defense: {{pokemonInfo.defense_stat}}</p>
-                        <figure class="pokemon-card-img-container">
+        <div class="card-container">
+            <div class="card mb-3" style="max-width: 600px;">
+                <div class="card-body">
+                    <h4 class="card-title"><strong>{{pokemonInfo.name}}</strong></h4><br />
+                    {% if pokemonInfo.ability2 %}
+                    <p class="card-text">Abilities: {{pokemonInfo.ability}}, {{pokemonInfo.ability2}}</p>
+                    {% else %}
+                    <p class="card-text">Abilities: {{pokemonInfo.ability}}</p>
+                    {% endif %}
+                    <p class="card-text">Base Exp: {{pokemonInfo.base_exp}}</p>
+                    <p class="card-text">Base Attack: {{pokemonInfo.attack_stat}}</p>
+                    <p class="card-text">Base HP: {{pokemonInfo.hp_stat}}</p>
+                    <p class="card-text">Base Defense: {{pokemonInfo.defense_stat}}</p>
+                    <figure class="pokemon-card-img-container">
                         <figure class="pokemon-card-img1-container">
-                        <img src="{{pokemonInfo.front_shiny}}" class="img-fluid rounded-start" alt="picture of {{ pokemonInfo.name }}">
-                        <figcaption style="font-weight:bolder">SHINY {{ pokemonInfo.name.upper() }}</figcaption>
+                            <img src="{{pokemonInfo.front_shiny}}" class="img-fluid rounded-start"
+                                alt="picture of {{ pokemonInfo.name }}">
+                            <figcaption style="font-weight:bolder">SHINY {{ pokemonInfo.name.upper() }}</figcaption>
                         </figure>
                         <figure class="pokemon-card-img2-container">
-                        <img src="{{pokemonInfo.default_img}}" class="img-fluid rounded-start" alt="picture of {{ pokemonInfo.name }}">
-                        <figcaption style="font-weight:bolder">NORMAL {{ pokemonInfo.name.upper() }}</figcaption>
+                            <img src="{{pokemonInfo.default_img}}" class="img-fluid rounded-start"
+                                alt="picture of {{ pokemonInfo.name }}">
+                            <figcaption style="font-weight:bolder">NORMAL {{ pokemonInfo.name.upper() }}</figcaption>
                         </figure>
-                        </figure>
-                        <br/><br/>
-                        <p class="card-text"><small class="text-muted">Pokemon ID: {{pokemonInfo.id}}</small></p>
-                    </div>
+                    </figure>
+                    <br /><br />
+                    <p class="card-text"><small class="text-muted">Pokemon ID: {{pokemonInfo.id}}</small></p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="add-to-team-button w-50">
-        {{ addToTeamForm.submit(class='btn btn-primary w-50 mb-2', value='Add To Team') }}
-    </div>  
-</form> 
+        </div>
+        </div>
+        {% if current_user.is_authenticated %}
+        {% if pokemonInfo.id in captured_set %}
+        <div class="add-to-team-button w-50">
+            <a class="btn btn-primary" href="/release/{{ pokemonInfo.id }}">Remove from Team</a>
+        </div>
+        {% elif pokemonInfo.id not in captured_set and captured_set|length < 5 %} <div class="add-to-team-button w-50">
+            <a class="btn btn-primary" href="/capture/{{ pokemonInfo.id }}">Add to Team</a>
+            </div>
+        {% else %}
+            <span>YOUR TEAM IS CURRENTLY FULL!</span>
+
+            {% endif %}
+
+            {% endif %}
+
+    </form>
     <footer class="footer-container">
         <div class="signature">
             Made by Diante
         </div>
-        
+
     </footer>
 </body>
 
