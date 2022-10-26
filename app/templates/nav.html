@@ -12,12 +12,15 @@
                     <a class="nav-link active" aria-current="page" href="/">Search</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Team</a>
+                    <a class="nav-link" href="/teams">View Teams</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/current_team">Current Team</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Battle</a>
                 </li>
-                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>

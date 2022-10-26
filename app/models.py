@@ -4,8 +4,8 @@ from werkzeug.security import generate_password_hash
 db = SQLAlchemy()
 
 
-team = db.Table(
-    'team',
+teamTable = db.Table(
+    'teamTable',
     db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.pokemon_id'), nullable=False),
     db.Column('user_id', db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 )
@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(250), nullable=False)
     # team_id = db.relationship('Team', backref='team', lazy=True)
     team = db.relationship('Pokemon',
-        secondary = 'team',
+        secondary = 'teamTable',
         backref = 'Pokemonteam',
         lazy = 'dynamic'
     )
@@ -56,7 +56,7 @@ class Pokemon(db.Model):
     hp = db.Column(db.Integer, nullable=False)
     defense = db.Column(db.Integer, nullable=False)
     team = db.relationship('User',
-        secondary = 'team',
+        secondary = 'teamTable',
         backref = 'userTeam',
         lazy = 'dynamic'
     )
