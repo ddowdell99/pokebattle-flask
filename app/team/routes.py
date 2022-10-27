@@ -71,7 +71,7 @@ def battleTime(user, current_user):
         user2.saveToDB()
 
 
-    elif overall_points_team1 > overall_points_team2:
+    elif overall_points_team1 < overall_points_team2:
         user1.losses += 1
         user2.wins += 1
         user1.saveToDB()
@@ -79,11 +79,11 @@ def battleTime(user, current_user):
 
         
 
-    else:
+    elif overall_points_team1 == overall_points_team2:
         user1.ties += 1
         user2.ties += 1
         user1.saveToDB()
         user2.saveToDB()
 
-    
+
     return render_template('battle.html', team1=team1, team2=team2, user1=user1, user2=user2, overall_points_team1=overall_points_team1, overall_points_team2=overall_points_team2)
