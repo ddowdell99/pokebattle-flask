@@ -30,7 +30,7 @@
 
 
     {% endfor %}
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated and current_user.team.all()|length == 5 %}
     <div class="battle-button text-center mb-2" style="display: flex; align-items: center;">
         <a class="btn btn-primary w-100" href="/battle/{{ current_user.first_name }}/{{ person }}">Battle Team</a>
     </div>
