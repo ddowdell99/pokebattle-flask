@@ -9,7 +9,8 @@
     <div style="display:flex; align-items: center;">
         <h1
             style="display: flex; align-items: center; background-color:white; border: thin solid black; margin-left:10px;">
-            {{ user1.first_name }}'s Team</h1>
+            {{ user1.first_name }}'s Team</br>Wins: {{ user1.wins }}<br>Losses: {{ user1.losses }}
+            <br>Ties: {{ user1.ties }}</h1>
     </div>
     {% for pokemon in team1 %}
 
@@ -52,7 +53,8 @@
     <div style="display:flex; align-items: center;">
         <h1
             style="display: flex; align-items: center; background-color:white; border: thin solid black; margin-left:10px;">
-            {{ user2.first_name }}'s Team</h1>
+            {{ user2.first_name }}'s Team</br>Wins: {{ user2.wins }}<br>Losses: {{ user2.losses }}
+        <br>Ties: {{ user2.ties }}</h1>
     </div>
     {% for pokemon in team2 %}
 

@@ -17,6 +17,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(250), nullable=False)
+    wins = db.Column(db.Integer, default=0)
+    losses = db.Column(db.Integer, default=0)
+    ties = db.Column(db.Integer, default=0)
     # team_id = db.relationship('Team', backref='team', lazy=True)
     team = db.relationship('Pokemon',
         secondary = 'teamTable',

@@ -41,6 +41,7 @@ def viewCurrentTeam():
 def battleTime(user, current_user):
     user1 = User.query.filter(User.first_name == user).first()
     user2 = User.query.filter(User.first_name == current_user).first()
+    print(user1.wins)
 
     team1 = user1.team.all()
     team2 = user2.team.all()
@@ -63,4 +64,26 @@ def battleTime(user, current_user):
     overall_points_team1 = health_defense_points1 - attack_points2
     overall_points_team2 = health_defense_points2 - attack_points1
 
+    if overall_points_team1 > overall_points_team2:
+        user1.wins += 1
+        user2.losses += 1
+        user1.saveToDB()
+        user2.saveToDB()
+
+
+    elif overall_points_team1 > overall_points_team2:
+        user1.losses += 1
+        user2.wins += 1
+        user1.saveToDB()
+        user2.saveToDB()
+
+        
+
+    else:
+        user1.ties += 1
+        user2.ties += 1
+        user1.saveToDB()
+        user2.saveToDB()
+
+    
     return render_template('battle.html', team1=team1, team2=team2, user1=user1, user2=user2, overall_points_team1=overall_points_team1, overall_points_team2=overall_points_team2)
