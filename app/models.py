@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     # team_id = db.relationship('Team', backref='team', lazy=True)
     team = db.relationship('Pokemon',
         secondary = 'teamTable',
-        backref = 'Pokemonteam',
+        backref = 'trainer',
         lazy = 'dynamic'
     )
 

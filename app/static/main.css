@@ -150,3 +150,10 @@ p.nav-link:hover {
     margin-top: 10em;
     padding: 1.5em;
 }
+
+.other-team-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+

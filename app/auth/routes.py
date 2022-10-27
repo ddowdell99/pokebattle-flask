@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
 
@@ -21,7 +21,11 @@ def signMeUp():
 
             user = User(first_name, last_name, username, email, password)
 
+            
+
             user.saveToDB()
+
+            flash('Successfully created user!', 'success')
 
             return redirect(url_for('auth.logMeIn'))
 
@@ -39,14 +43,14 @@ def logMeIn():
             user = User.query.filter_by(username=username).first()
             if user:
                 if check_password_hash(user.password, password):
-                    print('Successfully logged in!')
+                    flash('Successfully logged in!', 'success')
                     login_user(user)
                     return redirect(url_for('homePage'))
 
                 else:
-                    print('Incorrect Password!')
+                    flash('Incorrect Password!', 'danger')
             else:
-                print('User does not exist!')
+                flash('User does not exist!', 'danger')
 
 
     return render_template('login.html', logInForm=logInForm)
